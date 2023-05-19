@@ -22,12 +22,20 @@ def browser(request):
         options = Options()
         print("\nstart chrome browser for test..")
         options.add_experimental_option('prefs', {'intl.accept_languages': user_language})
+        # разворачивает окно во весь экран
+        options.add_argument('--start-maximized')
+        #скрывает окно браузера
+        options.add_argument('headless')
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        options.add_experimental_option('useAutomationExtension', False)
         browser = webdriver.Chrome(options=options)
     elif browser_name == "firefox":
         print("\nstart firefox browser for test..")
         options = FirefoxOptions()
         options.binary_location = r'/usr/local/bin/firefox'
         options.set_preference("intl.accept_languages", user_language)
+        options.add_argument('--start-maximized')
+        options.add_argument('headless')
         s = Service(r'/usr/local/bin/geckodriver')
         browser = webdriver.Firefox(service=s, options=options)
     else:
